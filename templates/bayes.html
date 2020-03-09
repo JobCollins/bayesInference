@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="formwrapper">
+  <h2 class="title">Bayes Inference</h2>
+  <form method="POST" action="/">
+      <div class="form-field">{{ form.specificity.label }} {{ form.specificity }}</div>
+      <div class="form-field">{{ form.sensitivity.label }} {{ form.sensitivity }}</div>
+      <div class="form-field">{{ form.prevalence.label }} {{ form.prevalence }}</div>
+      <div class="form-field">{{ form.p_threshold.label }} {{ form.p_threshold }}</div>
+      {{ form.bayes_infer }}
+  </form>
+</div>
+{% endblock %}

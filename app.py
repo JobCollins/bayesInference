@@ -7,9 +7,11 @@ app.config.from_object('config.Config')
 
 
 @app.route('/', methods=('GET', 'POST'))
-def bayes_infer():
+def bayes():
     form = BayeForm()
     if form.validate_on_submit():
         return redirect(url_for('success'))
 
     return render_template('index.html', form=form)
+
+    
