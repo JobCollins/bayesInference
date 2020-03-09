@@ -5,6 +5,7 @@
 <div class="container">
   <h2 class="title">Bayes Inference</h2>
   <form method="POST" action="/">
+    {{ form.csrf_token }}
       <div class="form-field col-md-2">
         {{ wtf.form_field(form.specificity)}}
         {% if form.specificity.errors %}
@@ -15,7 +16,7 @@
           </ul>
         {% endif %}
       </div>
-      <br>
+      
       <div class="form-field col-md-2">
         {{ wtf.form_field(form.sensitivity) }}
         {% if form.sensitivity.errors %}
@@ -26,7 +27,7 @@
           </ul>
         {% endif %}
       </div>
-      <br>
+      
       <div class="form-field col-md-2">
         {{ wtf.form_field(form.prevalence) }}
         {% if form.prevalence.errors %}
@@ -37,7 +38,7 @@
           </ul>
         {% endif %}
       </div>
-      <br>
+      
       <div class="form-field col-md-2">
         {{ wtf.form_field(form.p_threshold) }}
         {% if form.p_threshold.errors %}
@@ -48,8 +49,11 @@
           </ul>
         {% endif %}
       </div>
-      <input type="submit" class="btn btn-primary" value="Bayes Inference">
+      
       <!-- {{ wtf.form_field(form.bayes_infer, button_map={'submit':'success'}) }} -->
+  </form>
+  <form action="{{url_for('bayes')}}" method="POST">
+    <input type="submit" class="btn btn-primary" value="Bayes Inference">
   </form>
 </div>
 {% endblock %}
