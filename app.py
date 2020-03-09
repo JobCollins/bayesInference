@@ -1,11 +1,13 @@
 from flask import Flask, url_for, render_template, redirect
 from forms import BayeForm
 import os
+from flask_bootstrap import Bootstrap
 
 
 app = Flask(__name__, instance_relative_config=False)
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
+bootstrap = Bootstrap(app)
 
 
 @app.route('/', methods=('GET', 'POST'))

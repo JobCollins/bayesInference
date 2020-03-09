@@ -1,50 +1,51 @@
-{% extends 'layout.html' %}
+{% extends 'bootstrap/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
-<div class="formwrapper">
+<div class="container">
   <h2 class="title">Bayes Inference</h2>
   <form method="POST" action="/">
-      <div class="form-field">
-        {{ form.specificity.label }} {{ form.specificity}}
+      <div class="form-field col-md-2">
+        {{ wtf.form_field(form.specificity)}}
         {% if form.specificity.errors %}
           <ul class="errors">
             {% for error in form.specificity.errors %}
-              <li>{{ error }}</li>
+              <li class="alert alert-info" role="alert">{{ error }}</li>
               {% endfor %}
           </ul>
         {% endif %}
       </div>
-      <div class="form-field">
-        {{ form.sensitivity.label }} {{ form.sensitivity }}
+      <div class="form-field col-md-2">
+        {{ wtf.form_field(form.sensitivity) }}
         {% if form.sensitivity.errors %}
-          <ul class="errors">
+          <ul class="alert alert-info" role="alert">
             {% for error in form.sensitivity.errors %}
               <li>{{ error }}</li>
               {% endfor %}
           </ul>
         {% endif %}
       </div>
-      <div class="form-field">
-        {{ form.prevalence.label }} {{ form.prevalence }}
+      <div class="form-field col-md-2">
+        {{ wtf.form_field(form.prevalence) }}
         {% if form.prevalence.errors %}
-          <ul class="errors">
+          <ul class="alert alert-info" role="alert">
             {% for error in form.prevalence.errors %}
               <li>{{ error }}</li>
               {% endfor %}
           </ul>
         {% endif %}
       </div>
-      <div class="form-field">
-        {{ form.p_threshold.label }} {{ form.p_threshold }}
+      <div class="form-field col-md-2">
+        {{ wtf.form_field(form.p_threshold) }}
         {% if form.p_threshold.errors %}
-          <ul class="errors">
+          <ul class="alert alert-info" role="alert">
             {% for error in form.p_threshold.errors %}
               <li>{{ error }}</li>
               {% endfor %}
           </ul>
         {% endif %}
       </div>
-      {{ form.bayes_infer }}
+      {{ wtf.form_field(form.bayes_infer, button_map={'submit':'success'}) }}
   </form>
 </div>
 {% endblock %}
