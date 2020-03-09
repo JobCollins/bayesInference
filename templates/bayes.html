@@ -45,7 +45,8 @@
           </ul>
         {% endif %}
       </div>
-      {{ wtf.form_field(form.bayes_infer, button_map={'submit':'success'}) }}
+      <input type="submit" class="btn btn-primary" value="Bayes Inference">
+      <!-- {{ wtf.form_field(form.bayes_infer, button_map={'submit':'success'}) }} -->
   </form>
 </div>
 {% endblock %}
