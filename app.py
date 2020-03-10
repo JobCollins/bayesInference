@@ -16,22 +16,39 @@ class BayesForm(Form):
 
 
 @app.route("/", methods=['GET', 'POST'])
-def hello():
+def bayes():
     form = BayesForm(request.form)
 
     #print(form.errors)
     if request.method == 'POST':
 
-        specificity_v=request.form['specificity']
-        sensitivity_v=request.form['sensitivity']
-        prevalence_v=request.form['prevalence']
-        threshold_v=request.form['threshold']
-
         if form.validate():
+            specificity_v=request.form['specificity']
+            sensitivity_v=request.form['sensitivity']
+            prevalence_v=request.form['prevalence']
+            threshold_v=request.form['threshold']
             
             flash('Your values are: Specificity {} Sensitivity {} Prevalence {} Threshold {}'.format(specificity_v, sensitivity_v, prevalence_v, threshold_v))
 
+            """
+            Computes the posterior using Bayes' rule
+            """
+            p_user = prevalence_v
+            p_non_user = 1-prevalence_v
+            p_pos_user = sensitivity_v
+            p_neg_user = specificity_v
+            p_pos_non_user = 1-specificity_v
             
+            num = p_pos_user*p_user
+            den = p_pos_user*p_user+p_pos_non_user*p_non_user
+            
+            prob = num/den
+            
+            if verbose:
+                if prob > threshold_v:
+                    print("The test-taker could be an user")
+                else:
+                    print("The test-taker may not be an user")
 
         else:
             flash('Error: All Fields are Required')
