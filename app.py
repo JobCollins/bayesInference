@@ -1,36 +1,40 @@
-from flask import Flask, url_for, render_template, redirect, request
-from forms import BayeForm
-import os
-from flask_bootstrap import Bootstrap
+from random import randint
+from time import strftime
+from flask import Flask, render_template, flash, request
+from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
+
+DEBUG = True
+app = Flask(__name__)
+app.config.from_object(__name__)
+app.config['SECRET_KEY'] = 'SjdnUends821Jsdlkvxh391ksdODnejdDw'
+
+class BayesForm(Form):
+    specificity = TextField('Specificity:', validators=[validators.required()])
+    sensitivity = TextField('Sensitivity:', validators=[validators.required()])
+    prevalence = TextField('Prevalence:', validators=[validators.required()])
+    threshold = TextField('Probability Threshold:', validators=[validators.required()])
 
 
-app = Flask(__name__, instance_relative_config=False)
-SECRET_KEY = os.urandom(32)
-app.config['SECRET_KEY'] = SECRET_KEY
-bootstrap = Bootstrap(app)
+@app.route("/", methods=['GET', 'POST'])
+def hello():
+    form = BayesForm(request.form)
 
+    #print(form.errors)
+    if request.method == 'POST':
 
-@app.route('/')
-def home():
-    form = BayeForm()
-    return render_template('bayes.html', form=form)
+        specificity_v=request.form['specificity']
+        sensitivity_v=request.form['sensitivity']
+        prevalence_v=request.form['prevalence']
+        threshold_v=request.form['threshold']
 
+        if form.validate():
+            
+            flash('Your values are: Specificity {} Sensitivity {} Prevalence {} Threshold {}'.format(specificity_v, sensitivity_v, prevalence_v, threshold_v))
 
-@app.route('/bayes', methods=['GET', 'POST'])
-def bayes():
-    form = BayeForm(request.form)
-    if form.validate_on_submit():
-        specificity = form.specificity.data
-        sensitivity = form.sensitivity.data
-        prevalence = form.prevalence.data
-        threshold = form.p_threshold.data
+        else:
+            flash('Error: All Fields are Required')
 
-        print('Here is', specificity, sensitivity, prevalence, threshold)
-    else:
-        print('Not valid')
-        
+    return render_template('index.html', form=form)
 
-    return render_template('layout.html', form=form)
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(port=3000, debug=True)
