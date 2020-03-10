@@ -15,56 +15,56 @@
     </div>
 
     <div class=container"><br>
-    <div class="row align-items-center justify-content-center">
-    <div class="col-md-4">
-      <form  action="" method="post" role="form">
-        {{ form.csrf }}
-        <div class="form-group">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-4">
+                <form  action="" method="post" role="form">
+                    {{ form.csrf }}
+                    <div class="form-group">
 
-          <label for="specificity">Specificity:</label>
-          <input type="text" class="form-control" id="name" name="specificity" placeholder="Specificity Value">
+                        <label for="specificity">Specificity:</label>
+                        <input type="text" class="form-control" id="name" name="specificity" placeholder="Specificity Value">
+                            <br>
+                        <label for="sensitivity">Sensitivity:</label>
+                        <input type="text" class="form-control" id="sensitivity" name="sensitivity" placeholder="Sensitivity Value">
+                        <br>
+                        <label for="prevalence">Prevalence:</label>
+                        <input type="text" class="form-control" id="prevalence" name="prevalence" placeholder="Population Prevalence">
+                            <br>
+                        <label for="threshold">Threshold:</label>
+                        <input type="text" class="form-control" id="threshold" name="threshold" placeholder="Probability Threshold">
+
+                    </div>
+                    <br>													   
+
+                    <center>
+                    <button type="submit" class="btn btn-success">Bayes Inference</button>
+                    </center>
+                </form>
+
+                <br>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+
+                {% for message in messages %}
+                    {% if "Error" not in message[1]: %}
+                        <div class="alert alert-info">
+                        <strong>Success! </strong> {{ message[1] }}
+                        </div>
+                    {% endif %}
+
+                    {% if "Error" in message[1]: %}
+                        <div class="alert alert-danger">
+                        <strong>Error: </strong> {{ message[1] }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+            </div>
             <br>
-          <label for="sensitivity">Sensitivity:</label>
-          <input type="text" class="form-control" id="sensitivity" name="sensitivity" placeholder="Sensitivity Value?">
-	    <br>
-	  <label for="prevalence">Prevalence:</label>
-	  <input type="text" class="form-control" id="prevalence" name="prevalence" placeholder="Population Prevalence.">
-	    <br>
-	  <label for="threshold">Threshold:</label>
-	  <input type="text" class="form-control" id="threshold" name="threshold" placeholder="Probability Threshold.">
-
-	</div>
-        <br>													   
-
-        <center>
-          <button type="submit" class="btn btn-success">Bayes Inference</button>
-        </center>
-      </form>
-
-      <br>
-
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-
-        {% for message in messages %}
-            {% if "Error" not in message[1]: %}
-                <div class="alert alert-info">
-                <strong>Success! </strong> {{ message[1] }}
-                </div>
-            {% endif %}
-
-            {% if "Error" in message[1]: %}
-                <div class="alert alert-danger">
-                <strong>Error: </strong> {{ message[1] }}
-                </div>
-            {% endif %}
-        {% endfor %}
-            {% endif %}
-        {% endwith %}
-
-    </div>
-    <br>
-    </div>
+        </div>
     </div>
   </body>
 </html>
