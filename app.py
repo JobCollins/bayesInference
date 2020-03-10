@@ -19,6 +19,7 @@ class BayesForm(Form):
 def bayes():
     form = BayesForm(request.form)
     prob = None
+    threshold = None
     #print(form.errors)
     if request.method == 'POST':
 
@@ -38,6 +39,7 @@ def bayes():
             p_pos_user = float(sensitivity_v)
             p_neg_user = float(specificity_v)
             p_pos_non_user = 1-float(specificity_v)
+            threshold = float(threshold_v)
             
             num = p_pos_user*p_user
             den = p_pos_user*p_user+p_pos_non_user*p_non_user
@@ -54,7 +56,7 @@ def bayes():
         else:
             flash('Error: All Fields are Required')
 
-    return render_template('index.html', form=form, value=prob)
+    return render_template('index.html', form=form, value=prob, threshold=threshold)
 
 if __name__ == "__main__":
     app.run(port=3000, debug=True)

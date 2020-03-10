@@ -71,6 +71,9 @@
         <div style="margin-left: 50px;">
             <h2>Bayes Inference Results.</h2>
             <p>The probability of finding true positive from the test is: {{ value }}</p>
+            {% if value < threshold %}
+                <p>The test is not as reliable.</p>
+            {% endif %}
         </div>
     {% endif %}
     
