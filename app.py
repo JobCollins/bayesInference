@@ -33,27 +33,27 @@ def bayes():
             """
             Computes the posterior using Bayes' rule
             """
-            p_user = prevalence_v
-            p_non_user = 1-prevalence_v
-            p_pos_user = sensitivity_v
-            p_neg_user = specificity_v
-            p_pos_non_user = 1-specificity_v
+            p_user = float(prevalence_v)
+            p_non_user = 1-float(prevalence_v)
+            p_pos_user = float(sensitivity_v)
+            p_neg_user = float(specificity_v)
+            p_pos_non_user = 1-float(specificity_v)
             
             num = p_pos_user*p_user
             den = p_pos_user*p_user+p_pos_non_user*p_non_user
             
             prob = num/den
             
-            if verbose:
-                if prob > threshold_v:
-                    print("The test-taker could be an user")
-                else:
-                    print("The test-taker may not be an user")
+            
+            if prob > float(threshold_v):
+                print("The test-taker could be an user")
+            else:
+                print("The test-taker may not be an user")
 
         else:
             flash('Error: All Fields are Required')
 
-    return render_template('index.html', form=form)
+    return render_template('index.html', form=form, value=prob)
 
 if __name__ == "__main__":
     app.run(port=3000, debug=True)

@@ -51,6 +51,12 @@
                         <div class="alert alert-info">
                         <strong>Success! </strong> {{ message[1] }}
                         </div>
+                        <div style="margin-left: 50px;">
+                            <h2>Bayes Results</h2>
+                            <p>The probability of a true positive from the test is: {{ value }}</p>
+                            
+                        </div>
+                        
                     {% endif %}
 
                     {% if "Error" in message[1]: %}
