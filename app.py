@@ -18,7 +18,7 @@ class BayesForm(Form):
 @app.route("/", methods=['GET', 'POST'])
 def bayes():
     form = BayesForm(request.form)
-
+    prob = None
     #print(form.errors)
     if request.method == 'POST':
 
@@ -41,6 +41,7 @@ def bayes():
             
             num = p_pos_user*p_user
             den = p_pos_user*p_user+p_pos_non_user*p_non_user
+            
             
             prob = num/den
             

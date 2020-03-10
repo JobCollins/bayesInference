@@ -52,7 +52,6 @@
                         <strong>Success! </strong> {{ message[1] }}
                         </div>
                         
-                        
                     {% endif %}
 
                     {% if "Error" in message[1]: %}
@@ -68,5 +67,12 @@
             <br>
         </div>
     </div>
+    {% if value != None %}
+        <div style="margin-left: 50px;">
+            <h2>Bayes Inference Results.</h2>
+            <p>The probability of finding true positive from the test is: {{ value }}</p>
+        </div>
+    {% endif %}
+    
   </body>
 </html>
