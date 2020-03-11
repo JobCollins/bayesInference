@@ -26,6 +26,7 @@ def bayes():
     prob = None
     global specificity, sensitivity, prevalence, threshold
     threshold = None
+    bar = None
     #print(form.errors)
     if request.method == 'POST':
 
@@ -63,11 +64,14 @@ def bayes():
                 print("The test-taker could be an user")
             else:
                 print("The test-taker may not be an user")
+            
+            bar = create_graph()
 
         else:
             flash('Error: All Fields are Required')
+            
 
-    return render_template('index.html', form=form, value=prob, threshold=threshold)
+    return render_template('index.html', form=form, value=prob, threshold=threshold, plot=bar)
 
 def posterior(specificity, sensitivity, prevalence, threshold):
     
@@ -86,10 +90,12 @@ def posterior(specificity, sensitivity, prevalence, threshold):
 
     return prob
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/", methods=['POST'])
 def plot_png():
     # logic        
     bar = create_graph()
+    print('Here the bar')
+    print(bar)
     
     return render_template('index.html', plot=bar)
 
@@ -101,16 +107,16 @@ def create_graph():
         prevs.append(prev*100)
         prob = posterior(sensitivity=sensitivity,specificity=specificity,prevalence=prev, threshold=threshold)
         probs.append(prob)
-
+    
     data = [
-        go.Bar(
+        go.Scatter(
             x=prevs,
             y=probs
         )
     ]
 
     graph = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
-
+    
     return graph
 
 if __name__ == "__main__":
