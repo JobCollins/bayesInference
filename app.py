@@ -111,11 +111,41 @@ def create_graph():
     data = [
         go.Scatter(
             x=prevs,
-            y=probs
+            y=probs,
+            mode='lines+markers'
         )
     ]
 
-    graph = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
+    layout = go.Layout(
+        title=go.layout.Title(
+            text='Probability of True Positive with Prevalence Rate',
+            xref='paper',
+            x=0
+        ),
+        xaxis=go.layout.XAxis(
+            title=go.layout.xaxis.Title(
+                text='Prevalence(%)',
+                font=dict(
+                    family='Roboto',
+                    size=18,
+                    color='#7f7f7f'
+                )
+            )
+        ),
+        yaxis=go.layout.YAxis(
+            title=go.layout.yaxis.Title(
+                text='Probability of a True Positive',
+                font=dict(
+                    family='Roboto',
+                    size=18,
+                    color='#7f7f7f'
+                )
+            )
+        )
+    )
+    fig = go.Figure(data=data, layout=layout)
+    
+    graph = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     
     return graph
 
