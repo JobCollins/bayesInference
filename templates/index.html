@@ -92,6 +92,22 @@
                 <h3>How can the scenario be improved?</h3>
                 <br>
                 <!-- pick up from here -->
+                <p>For Bayes Inference computation, the test's sensitivity and specificity strongly influence the computation. Let's look at
+                     what is needed to improve the probability of catching a true positive.
+                </p>
+                <div class="chart" id="linegraph">
+                    <script>
+                        var graphs = {{sens | safe}};
+                        Plotly.plot('linegraph',graphs,{});
+                    </script>
+                </div>
+                <p>The plot above shows how much we gain with a sensitivity close to 100%. This significance of the gain can be determined by
+                     checking the difference between the probability at 100% sensitivity and the probability got from the Bayes Inference above.
+                     If the difference is significant improvement then you should consider efforts to tweak the <strong>sensitivity of the test</strong>
+                      towards that value, say 100%.
+                </p>
+                <p>If there is nothing significant from the sensitivity plot above you might want to look at the <strong>specificity plot</strong> below.</p>
+                
             {% endif %}
         </div>
     {% endif %}
