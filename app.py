@@ -28,6 +28,7 @@ def bayes():
     threshold = None
     bar = None
     sens_line = None
+    specs_line = None
     #print(form.errors)
     if request.method == 'POST':
 
@@ -68,12 +69,13 @@ def bayes():
             
             bar = create_graph()
             sens_line = create_sens_graph()
+            specs_line = create_spec_graph()
 
         else:
             flash('Error: All Fields are Required')
             
 
-    return render_template('index.html', form=form, value=prob, threshold=threshold, plot=bar, sens=sens_line)
+    return render_template('index.html', form=form, value=prob, threshold=threshold, plot=bar, sens=sens_line, specs=specs_line)
 
 def posterior(specificity, sensitivity, prevalence, threshold):
     
@@ -177,6 +179,56 @@ def create_sens_graph():
         xaxis=go.layout.XAxis(
             title=go.layout.xaxis.Title(
                 text='Sensitivity(%)',
+                font=dict(
+                    family='Roboto',
+                    size=18,
+                    color='#7f7f7f'
+                )
+            )
+        ),
+        yaxis=go.layout.YAxis(
+            title=go.layout.yaxis.Title(
+                text='Probability of a True Positive',
+                font=dict(
+                    family='Roboto',
+                    size=18,
+                    color='#7f7f7f'
+                )
+            )
+        )
+    )
+    fig = go.Figure(data=data, layout=layout)
+    
+    graph = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    
+    return graph
+
+def create_spec_graph():
+
+    probs=[]
+    specs=[]
+    for spec in [i*0.001+0.95 for i in range(1,50,2)]:
+        specs.append(spec)
+        prob = posterior(sensitivity=sensitivity,specificity=spec,prevalence=prevalence, threshold=threshold)
+        probs.append(prob)
+    
+    data = [
+        go.Scatter(
+            x=specs,
+            y=probs,
+            mode='lines+markers'
+        )
+    ]
+
+    layout = go.Layout(
+        title=go.layout.Title(
+            text='Probability of True Positive with Test Specificity',
+            xref='paper',
+            x=0
+        ),
+        xaxis=go.layout.XAxis(
+            title=go.layout.xaxis.Title(
+                text='Specificity(%)',
                 font=dict(
                     family='Roboto',
                     size=18,

@@ -102,12 +102,26 @@
                     </script>
                 </div>
                 <p>The plot above shows how much we gain with a sensitivity close to 100%. This significance of the gain can be determined by
-                     checking the difference between the probability at 100% sensitivity and the probability got from the Bayes Inference above.
-                     If the difference is significant improvement then you should consider efforts to tweak the <strong>sensitivity of the test</strong>
+                     checking the difference between the probability at 100% sensitivity and the probability got from the Bayes Inference above. <i>Also, the <strong>non-linearity</strong> of
+                      the probabilty response with respect to sensitivity is a sign of significance with increased sensitivity.</i>
+                     If the difference is significant improvement or the graph is non-linear, then you should consider efforts to tweak the <strong>sensitivity of the test</strong>
                       towards that value, say 100%.
                 </p>
                 <p>If there is nothing significant from the sensitivity plot above you might want to look at the <strong>specificity plot</strong> below.</p>
-                
+                <div class="chart" id="specgraph">
+                    <script>
+                        var graphs = {{specs | safe}};
+                        Plotly.plot('specgraph',graphs,{});
+                    </script>
+                </div>
+                <p>
+                    Check the probability response with respect to specificity of the test. A highly non-linear graph as it reaches perfection indicate a large increase
+                    in the probability of catching a true positive. This would mean efforts should be focused on how to improve the <strong>specificity of the test</strong>.
+                </p>
+                <p>
+                    Intuitively, the above conclusion is with low population prevalence rate the focus should be
+                    on catching true negatives correctly (improve specificity) since they are a much larger number than true positives. The opposite holds.
+                </p>
             {% endif %}
         </div>
     {% endif %}
