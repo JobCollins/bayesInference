@@ -15,4 +15,4 @@ pipelines:
           - pip
         script: # Modify the commands below to build your repository.
           - pip install -r requirements.txt
-          - git push https://heroku:$api_key@git.heroku.com/$app_name.git HEAD
+          - git push https://heroku:0fd6ce82-15a7-4219-910c-937a7d0f9b45@git.heroku.com/bayesinference.git HEAD
