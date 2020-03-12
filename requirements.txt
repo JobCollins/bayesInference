@@ -1,0 +1,4 @@
+Flask==1.1.1
+plotly==4.5.3
+wtforms==2.2.1
+json
