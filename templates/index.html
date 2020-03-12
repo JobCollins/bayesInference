@@ -122,6 +122,28 @@
                     Intuitively, the above conclusion is with low population prevalence rate the focus should be
                     on catching true negatives correctly (improve specificity) since they are a much larger number than true positives. The opposite holds.
                 </p>
+
+                <h3>Chain Bayes' Rule</h3>
+                <br>
+                <p>
+                    In Bayesian Inference there is the ability to use <strong>prior knowledge</strong> in the form of <i>prior probability term</i> in the numerator of the Bayes'
+                    theorem.
+                    <br>
+                    The prior knowledge is the <i>computed probability of the test</i> which is then fed back to the next test. That is, in case of an extremely low population prevalence
+                    , one can increase confidence by conducting a second test if the first test result is positive. The posterior probability from the first test becomes the prior for the 
+                    second test. The probability of a true positive is not the general prevalence rate for the second test, but the probability from the first test: <strong>{{ value }}</strong>.
+                </p>
+                <br>
+                <p><strong><i>Chaining the bayes inference gives the results: </i></strong></p>
+                <ul>
+                    <li>The probability of catching a true positive in the first test is: <strong>{{ value }}</strong></li>
+                    <li>The probability of catching a true positive in the second round of the test is: <strong>{{ probTwo }}</strong></li>
+                    <li>The probability of catching a true positive in the third round of the test is: <strong>{{ probThree }}</strong></li>
+                </ul>
+                <p>You can see with chaining there is improvement the probability responses. Therefore, for a test that is not as reliable the first time, reuse it multiple times to improve confidence
+                    with successive application of Bayes' Theorem, also chaining.
+                </p>
+                
             {% endif %}
         </div>
     {% endif %}

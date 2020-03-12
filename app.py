@@ -24,6 +24,8 @@ class BayesForm(Form):
 def bayes():
     form = BayesForm(request.form)
     prob = None
+    prob_2 = None
+    prob_3 = None
     global specificity, sensitivity, prevalence, threshold
     threshold = None
     bar = None
@@ -70,12 +72,15 @@ def bayes():
             bar = create_graph()
             sens_line = create_sens_graph()
             specs_line = create_spec_graph()
+            
+            prob_2 = posterior(sensitivity=sensitivity,specificity=specificity,prevalence=prob, threshold=threshold)
+            prob_3 = posterior(sensitivity=sensitivity,specificity=specificity,prevalence=prob_2, threshold=threshold)
 
         else:
             flash('Error: All Fields are Required')
             
 
-    return render_template('index.html', form=form, value=prob, threshold=threshold, plot=bar, sens=sens_line, specs=specs_line)
+    return render_template('index.html', form=form, value=prob, threshold=threshold, plot=bar, sens=sens_line, specs=specs_line, probTwo=prob_2, probThree=prob_3)
 
 def posterior(specificity, sensitivity, prevalence, threshold):
     
