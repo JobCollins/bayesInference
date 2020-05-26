@@ -15,6 +15,6 @@ The app is currently set to port 3000, you can change this to the port you prefe
 
 ### Contribution guidelines ###
 
-If you find any bugs or improvements you would like to suggest you can reach out to dulojob@gmail.com with the Subject 'Bayes Inference'.
+If you find any bugs or improvements you would like to suggest you can reach out to dulojob@gmail.com with the Subject 'Bayes Inference'. The live app is here https://arcane-sierra-40109.herokuapp.com/
 
 ### Happy Inferencing!!!
