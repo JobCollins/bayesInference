@@ -1,4 +1,4 @@
-Flask==1.1.1
+Flask==2.3.2
 plotly==4.5.3
 wtforms==2.2.1
 json5==0.8.5
